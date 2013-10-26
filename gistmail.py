@@ -31,6 +31,10 @@ def index():
 @app.route('/incoming', methods=['GET', 'POST'])
 def incoming():
     if request.method == 'POST':
+        # Ignore initial Mandrill check
+        if not request.form['mandrill_events'] or request.form['mandrill_events'] == []:
+            return ''
+
         print ' * INCOMING EMAIL'
 
         event = json.loads(request.form['mandrill_events'])[0]
@@ -39,6 +43,10 @@ def incoming():
         email = msg['from_email']
         subject = msg['subject']
         print 'From:', email
+
+        # Ignore Mandrill test
+        if email == u'example.sender@mandrillapp.com':
+            return ''
 
         try:
             summary = summarize_email(msg['text'])
