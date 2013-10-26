@@ -1,3 +1,6 @@
+nltk==2.0.4
+requests==2.0.1
+beautifulsoup4==4.3.1
 Flask==0.10.1
 mandrill==1.0.51
 gunicorn==17.5

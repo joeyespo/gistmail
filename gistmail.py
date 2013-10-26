@@ -4,6 +4,7 @@ GistMail
 Email gist@gistmail.com with a link and get a response with that article's summary.
 """
 
+from summarize import summarize_page
 from flask import Flask, render_template
 
 
@@ -23,6 +24,9 @@ def index():
 
 @app.route('/incoming', methods=['POST'])
 def incoming():
+    summary = summarize_page()
+    # TODO: Email summary
+    print summary
     return 'TODO: Implement'
 
 
