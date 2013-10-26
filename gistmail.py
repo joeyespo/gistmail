@@ -6,6 +6,7 @@ Email gist@gistmail.com with a link and get a response with that article's summa
 
 from mandrill import Mandrill
 from flask import Flask, json, render_template, request
+from raven.contrib.flask import Sentry
 from summarize import summarize_page
 
 
@@ -17,6 +18,8 @@ app.config.from_envvar('SETTINGS_MODULE', silent=True)
 app.config.from_pyfile('settings_local.py', silent=True)
 # Email
 mandrill = Mandrill(app.config['MANDRILL_API_KEY'])
+# Error logging
+sentry = Sentry(app) if not app.config['SENTRY_DISABLED'] else None
 
 
 # Views
@@ -40,6 +43,8 @@ def incoming():
         try:
             summary = summarize_email(msg['text'])
         except Exception as ex:
+            if sentry:
+                sentry.captureException()
             print ' * ERROR:', type(ex), ex
             text = 'There was a problem processing your request.<br /><br />We have been notified and are looking into it. Please try again later.'
             send_email(email, '[ERROR] ' + subject, text)

@@ -21,3 +21,8 @@ ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY')
 MANDRILL_EMAIL = os.environ.get('MANDRILL_EMAIL')
 MANDRILL_EMAIL_NAME = os.environ.get('MANDRILL_EMAIL_NAME')
+
+
+# Error logging settings
+SENTRY_DSN = os.environ.get('SENTRY_DSN')
+SENTRY_DISABLED = os.environ.get('SENTRY_DISABLED')
