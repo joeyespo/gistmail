@@ -5,7 +5,7 @@ Email gist@gistmail.com with a link and get a response with that article's summa
 """
 
 from summarize import summarize_page
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 
 # Flask application
@@ -22,11 +22,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/incoming', methods=['POST'])
+@app.route('/incoming', methods=['GET', 'POST'])
 def incoming():
-    summary = summarize_page()
-    # TODO: Email summary
-    print summary
+    if request.method == 'POST':
+        summary = summarize_page()
+        # TODO: Email summary
+        print summary
+
     return 'TODO: Implement'
 
 
