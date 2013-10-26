@@ -69,6 +69,8 @@ def incoming():
 
 # Helpers
 def send_email(to, subject, text):
+    if isinstance(to, basestring):
+        to = {'email': to}
     message = {
         'text': text,
         'subject': subject,
