@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block full_title %}{% block title %}{% endblock %} - GistMail{% endblock %}</title>
+    <link href="{{ url_for('.static', filename='vendor/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('.static', filename='styles/site.css') }}" rel="stylesheet" />
+    {% block styles %}{% endblock %}
+    <!--[if lt IE 9]><script src="{{ url_for('.static', filename='vendor/html5shiv/dist/html5shiv.js') }}"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page-container">
+      {% block page %}{% endblock %}
+    </div>
+    <script src="{{ url_for('.static', filename='vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('.static', filename='vendor/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

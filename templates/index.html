@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+
+{% block full_title %}GistMail - Email gist@gistmail.com with a link and get a response with that article's summary{% endblock %}
+
+{% block page %}
+  <div class="landing-page">
+    <div class="container">
+      <header>
+        <h1>GistMail</h1>
+        <p>
+          Email <a href="mailto:gist@gistmail.com">gist@gistmail.com</a> with a link and get a response with that article's summary.
+        </p>
+      </header>
+
+      <section>
+        <h2>Examples</h2>
+        <ul class="examples">
+          <li><a href="mailto:gist@gistmail.com?subject=Gist+of+gistmail.com&amp;body=http://gistmail.com" target="_blank">gistmail.com<a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+{% endblock %}

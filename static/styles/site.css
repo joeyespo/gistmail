@@ -1,0 +1,23 @@
+.landing-page {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.landing-page header {
+  text-align: center;
+}
+
+.landing-page header a {
+  font-weight: bold;
+}
+
+.landing-page section {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.landing-page ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
