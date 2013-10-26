@@ -17,4 +17,7 @@ SERVER_NAME = os.environ.get('SERVER_NAME') # The external-visible name of the s
 
 
 # Email settings
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
 MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY')
+MANDRILL_EMAIL = os.environ.get('MANDRILL_EMAIL')
+MANDRILL_EMAIL_NAME = os.environ.get('MANDRILL_EMAIL_NAME')
