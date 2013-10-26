@@ -4,6 +4,8 @@ import nltk
 from nltk.corpus import stopwords
 import string
 
+nltk.data.path.append('./nltk_data/')
+
 stop_words = stopwords.words('english')
 
 # The low end of shared words to consider
