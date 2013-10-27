@@ -54,24 +54,24 @@ def incoming():
             if sentry:
                 sentry.captureException()
             print ' * ERROR:', type(ex), ex
-            text = 'There was a problem processing your request.<br /><br />We have been notified and are looking into it. Please try again later.'
-            send_email(email, '[ERROR] ' + subject, text)
+            html = 'There was a problem processing your request.<br /><br />We have been notified and are looking into it. Please try again later.'
+            email_id = send_email(email, '[ERROR] ' + subject, html)
         else:
             print 'Replying to:', email
-            text = '<h3>Summary of <a href="%s">%s</a></h3><br/><br/>%s' % (
+            html = '<h3>Summary of <a href="%s">%s</a></h3><br/><br/>%s' % (
                 summary.url, summary.url, str(summary))
-            email_id = send_email(email, subject, text)
+            email_id = send_email(email, subject, html)
         print 'Reply ID:', email_id
 
-    return 'TODO: Implement'
+    return ''
 
 
 # Helpers
-def send_email(to, subject, text):
+def send_email(to, subject, html):
     if isinstance(to, basestring):
         to = {'email': to}
     message = {
-        'text': text,
+        'html': html,
         'subject': subject,
         'from_email': app.config['MANDRILL_EMAIL'],
         'from_name': app.config['MANDRILL_EMAIL_NAME'],
