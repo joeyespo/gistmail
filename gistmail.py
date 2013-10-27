@@ -95,6 +95,8 @@ def summarize_email(text):
     # TODO: Email summary
     print summary
 
+    return summary
+
 
 # Run development server
 if __name__ == '__main__':
