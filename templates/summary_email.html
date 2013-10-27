@@ -1,0 +1,17 @@
+{% extends '_email.html' %}
+
+{% block body %}
+  <div class="email">
+    <h3>Summary of <a href="{{ url }}">{{ title }}</a></h3>
+
+    <ul>
+      {% for summary in summaries %}
+        <li>{{ summary }}</li>
+      {% endfor %}
+    </ul>
+
+    <p style="border-top: 1px solid #ccc;margin-top: 24px;padding-top: 12px;">
+      Thank you for using <a href="http://gistmail.com">GistMail</a>!
+    </p>
+  </div>
+{% endblock %}

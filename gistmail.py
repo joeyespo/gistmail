@@ -30,40 +30,45 @@ def index():
 
 @app.route('/incoming', methods=['GET', 'POST'])
 def incoming():
-    if request.method == 'POST':
-        # Ignore initial Mandrill check
-        if not request.form['mandrill_events'] or request.form['mandrill_events'] == []:
-            return ''
+    # Ignore initial Mandrill check
+    if request.method == 'GET':
+        return ''
+    if not request.form['mandrill_events'] or request.form['mandrill_events'] == []:
+        return ''
 
-        print ' * INCOMING EMAIL:',
+    print ' * INCOMING EMAIL:',
 
-        event = json.loads(request.form['mandrill_events'])[0]
-        msg = event['msg']
+    event = json.loads(request.form['mandrill_events'])[0]
+    msg = event['msg']
 
-        email = msg['from_email']
-        subject = msg['subject']
-        print email
+    email = msg['from_email']
+    subject = msg['subject']
+    print email
 
-        # Ignore Mandrill test
-        if email == u'example.sender@mandrillapp.com':
-            return ''
+    # Ignore Mandrill test
+    if email == u'example.sender@mandrillapp.com':
+        return ''
 
-        try:
-            summary = summarize_email(msg['text'])
-        except Exception as ex:
-            if sentry:
-                sentry.captureException()
-            print ' * ERROR:', type(ex), ex
-            subject = '[ERROR] ' + subject
-            html = 'There was a problem processing your request.<br /><br />We have been notified and are looking into it. Please try again later.'
-        else:
-            print 'Replying to:', email
-            html = '<h3>Summary of <a href="%s">%s</a></h3><br/><br/>%s' % (
-                summary.url, summary.url, str(summary))
+    # TODO: Use pattern matching to find the URL
+    url = msg['text'].strip()
+    print 'Summarizing:', url
 
-        email_id = send_email(email, subject, html)
-        print 'Reply ID:', email_id
+    try:
+        summary = summarize_page(url)
+    except Exception as ex:
+        if sentry:
+            sentry.captureException()
+        print ' * ERROR:', type(ex), ex
+        subject = '[ERROR] ' + subject
+        html = render_template('error_email.html', url=url)
+    else:
+        html = render_template('summary_email.html',
+            title=summary.title, url=summary.url, summaries=summary.summaries)
 
+    print 'Replying to:', email
+    email_id = send_email(email, subject, html)
+
+    print 'Reply ID:', email_id
     return ''
 
 
@@ -82,21 +87,6 @@ def send_email(to, subject, html):
         message['bcc_address'] = app.config['ADMIN_EMAIL']
     result = mandrill.messages.send(message=message)[0]
     return result['_id']
-
-
-
-def summarize_email(text):
-    print 'Body:', text
-
-    # TODO: Use pattern matching to find the URL
-    url = text.strip()
-    print 'Summarizing:', url
-
-    summary = summarize_page(url)
-    # TODO: Email summary
-    print summary
-
-    return summary
 
 
 # Run development server

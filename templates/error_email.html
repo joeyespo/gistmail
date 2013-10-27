@@ -1,0 +1,17 @@
+{% extends '_email.html' %}
+
+{% block body %}
+  <div class="email">
+    <h3>Error summarizing <a href="{{ url }}">{{ url }}</a></h3>
+    <p>
+      There was a problem processing your request.
+    </p>
+    <p>
+      We have been notified and are looking into it. Please try again later.
+    </p>
+
+    <p style="border-top: 1px solid #ccc;margin-top: 24px;padding-top: 12px;">
+      Thank you for using <a href="http://gistmail.com">GistMail</a>!
+    </p>
+  </div>
+{% endblock %}
