@@ -2,6 +2,14 @@
 
 {% block full_title %}GistMail - Email gist@gistmail.com with a link and get a response with that article's summary{% endblock %}
 
+{% block scripts %}
+  <script>
+    $(window).bind("load", function() {
+       $('.social').show('fast');
+    });
+  </script>
+{% endblock %}
+
 {% block page %}
   <div class="landing-page">
     <div class="container">
@@ -19,6 +27,13 @@
         </ul>
       </section>
 
+      <footer>
+        <div class="social">
+          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://gistmail.com" data-text="Check out GistMail! Email it with a URL and it responds with a summary of that article" data-via="joeyespo" data-related="joeyespo" data-count="none" data-hashtags="NLP">Tweet</a>
+          <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+          <script data-gittip-username="joeyespo" data-gittip-widget="button" src="//gttp.co/v1.js"></script>
+        </div>
+      </footer>
     </div>
   </div>
 {% endblock %}
