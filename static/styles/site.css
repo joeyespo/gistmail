@@ -11,9 +11,17 @@
   font-weight: bold;
 }
 
+.landing-page h2 {
+  margin: 0;
+}
+
 .landing-page section {
   margin-top: 32px;
   text-align: center;
+}
+
+.landing-page .well {
+  padding: 32px;
 }
 
 .landing-page ul {
