@@ -38,12 +38,22 @@
 }
 
 .landing-page footer {
+  position: relative;
   border-top: 1px solid #ccc;
   margin-top: 32px;
   padding-top: 12px;
   text-align: center;
 }
 
-.social {
+.landing-page .social {
   display: none;
+}
+
+.landing-page .author {
+  position: absolute;
+  right: 0;
+  color: #aaa;
+}
+.landing-page .author a {
+  color: #aaa;
 }
