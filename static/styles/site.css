@@ -12,7 +12,7 @@
 }
 
 .landing-page h2 {
-  margin: 0;
+  margin: 0 auto 24px 0;
 }
 
 .landing-page section {
@@ -24,10 +24,17 @@
   padding: 32px;
 }
 
-.landing-page ul {
-  list-style: none;
+.landing-page .examples ul {
   margin: 0;
   padding: 0;
+  display: inline-block;
+}
+.landing-page .examples li {
+  text-align: left;
+}
+
+.landing-page .bookmarklet-container {
+  margin-top: 24px;
 }
 
 .landing-page footer {
