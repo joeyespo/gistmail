@@ -56,12 +56,11 @@ def incoming():
             print ' * ERROR:', type(ex), ex
             text = 'There was a problem processing your request.<br /><br />We have been notified and are looking into it. Please try again later.'
             send_email(email, '[ERROR] ' + subject, text)
-
-        print 'Replying to:', email
-        text = '<h3>Summary of <a href="%s">%s</a></h3><br/><br/>%s' % (
-            summary.url, summary.url, str(summary))
-
-        email_id = send_email(email, subject, text)
+        else:
+            print 'Replying to:', email
+            text = '<h3>Summary of <a href="%s">%s</a></h3><br/><br/>%s' % (
+                summary.url, summary.url, str(summary))
+            email_id = send_email(email, subject, text)
         print 'Reply ID:', email_id
 
     return 'TODO: Implement'
