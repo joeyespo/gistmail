@@ -25,7 +25,9 @@ sentry = Sentry(app) if not app.config['SENTRY_DISABLED'] else None
 # Views
 @app.route('/')
 def index():
-    return render_template('index.html')
+    show_admin = bool(app.config['DEBUG'])
+    return render_template('index.html',
+        show_admin=show_admin, test_email_json=test_email_json())
 
 
 @app.route('/incoming', methods=['GET', 'POST'])
@@ -87,6 +89,18 @@ def send_email(to, subject, html):
         message['bcc_address'] = app.config['ADMIN_EMAIL']
     result = mandrill.messages.send(message=message)[0]
     return result['_id']
+
+
+def test_email_json():
+    return json.dumps([
+        {
+            'msg': {
+                'from_email': app.config['ADMIN_EMAIL'],
+                'subject': 'GistMail Test',
+                'text': 'http://gistmail.com',
+            },
+        },
+    ])
 
 
 # Run development server
