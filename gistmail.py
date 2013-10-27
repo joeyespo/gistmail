@@ -35,14 +35,14 @@ def incoming():
         if not request.form['mandrill_events'] or request.form['mandrill_events'] == []:
             return ''
 
-        print ' * INCOMING EMAIL'
+        print ' * INCOMING EMAIL:',
 
         event = json.loads(request.form['mandrill_events'])[0]
         msg = event['msg']
 
         email = msg['from_email']
         subject = msg['subject']
-        print 'From:', email
+        print email
 
         # Ignore Mandrill test
         if email == u'example.sender@mandrillapp.com':
@@ -54,13 +54,14 @@ def incoming():
             if sentry:
                 sentry.captureException()
             print ' * ERROR:', type(ex), ex
+            subject = '[ERROR] ' + subject
             html = 'There was a problem processing your request.<br /><br />We have been notified and are looking into it. Please try again later.'
-            email_id = send_email(email, '[ERROR] ' + subject, html)
         else:
             print 'Replying to:', email
             html = '<h3>Summary of <a href="%s">%s</a></h3><br/><br/>%s' % (
                 summary.url, summary.url, str(summary))
-            email_id = send_email(email, subject, html)
+
+        email_id = send_email(email, subject, html)
         print 'Reply ID:', email_id
 
     return ''
