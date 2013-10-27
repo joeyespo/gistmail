@@ -5,7 +5,7 @@ Email gist@gistmail.com with a link and get a response with that article's summa
 """
 
 from mandrill import Mandrill
-from flask import Flask, json, render_template, request
+from flask import Flask, abort, json, render_template, request
 from raven.contrib.flask import Sentry
 from summarize import summarize_page
 
@@ -25,9 +25,14 @@ sentry = Sentry(app) if not app.config['SENTRY_DISABLED'] else None
 # Views
 @app.route('/')
 def index():
-    show_admin = bool(app.config['DEBUG'])
-    return render_template('index.html',
-        show_admin=show_admin, test_email_json=test_email_json())
+    return render_template('index.html')
+
+
+@app.route('/admin')
+def admin():
+    if not bool(app.config['DEBUG']):
+        abort(404)
+    return render_template('admin.html', test_email_json=test_email_json())
 
 
 @app.route('/incoming', methods=['GET', 'POST'])

@@ -1,0 +1,21 @@
+{% extends '_base.html' %}
+
+{% block full_title %}GistMail Admin{% endblock %}
+
+{% block page %}
+  <div class="landing-page">
+    <div class="container">
+
+      <section class="well">
+        <h1>GistMail Admin</h1>
+        <p>
+          <form action="{{ url_for('incoming') }}" method="POST">
+            <input type="hidden" name="mandrill_events" value="{{ test_email_json }}" />
+            <button type="submit">Test Email Handler</button>
+          </form>
+        </p>
+      </section>
+
+    </div>
+  </div>
+{% endblock %}

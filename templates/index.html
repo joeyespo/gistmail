@@ -19,17 +19,6 @@
         </ul>
       </section>
 
-      {% if show_admin %}
-        <section class="well">
-          <h2>Admin</h2>
-          <p>
-            <form action="{{ url_for('incoming') }}" method="POST">
-              <input type="hidden" name="mandrill_events" value="{{ test_email_json }}" />
-              <button type="submit">Test Email Handler</button>
-            </form>
-          </p>
-        </section>
-      {% endif %}
     </div>
   </div>
 {% endblock %}
