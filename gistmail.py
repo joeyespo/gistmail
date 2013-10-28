@@ -90,8 +90,6 @@ def send_email(to, subject, html):
         'from_name': app.config['MANDRILL_EMAIL_NAME'],
         'to': [to],
     }
-    if app.config['ADMIN_EMAIL']:
-        message['bcc_address'] = app.config['ADMIN_EMAIL']
     result = mandrill.messages.send(message=message)[0]
     return result['_id']
 
