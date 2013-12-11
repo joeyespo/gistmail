@@ -43,6 +43,8 @@ def incoming():
     if not request.form['mandrill_events'] or request.form['mandrill_events'] == []:
         return ''
 
+    # TODO: Check that this request is actually coming from Mandrill
+
     print ' * INCOMING EMAIL:',
 
     event = json.loads(request.form['mandrill_events'])[0]
