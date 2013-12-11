@@ -103,7 +103,7 @@ def test_email_json():
                 'text': 'http://gistmail.com',
             },
         },
-    ])
+    ], indent=4, sort_keys=True)
 
 
 # Run development server
