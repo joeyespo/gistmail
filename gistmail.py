@@ -47,19 +47,37 @@ def incoming():
 
     print ' * INCOMING EMAIL:',
 
+    # Get incoming message
     event = json.loads(request.form['mandrill_events'])[0]
-    msg = event['msg']
+    msg = event['msg'] if 'msg' in event else None
+    if not msg:
+        print ' * SKIPPING: No "msg" field found'
+        return ''
 
+    # Get message metadata
     email = msg['from_email']
     subject = msg['subject']
-    print email
+    if not email:
+        print ' * SKIPPING: No "email" field found.'
+        return ''
+    if not subject:
+        print ' * SKIPPING: No "subject" field found.'
+        return ''
 
     # Ignore Mandrill test
+    print 'Incoming email from:', email
     if email == u'example.sender@mandrillapp.com':
+        print ' * Skipping incoming test email.'
+        return ''
+
+    # Ignore malformed message
+    text = msg['text'] if 'text' in msg else None
+    if text:
+        print ' * SKIPPING: No "text" field found.'
         return ''
 
     # TODO: Use pattern matching to find the URL
-    url = msg['text'].strip()
+    url = text.strip()
     print 'Summarizing:', url
 
     try:
