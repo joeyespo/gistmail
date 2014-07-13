@@ -77,7 +77,7 @@ def incoming():
         return ''
 
     # TODO: Use pattern matching to find the URL
-    url = text.strip()
+    url = text.encode('utf-8', 'replace').strip()
     print 'Summarizing:', url
 
     try:
