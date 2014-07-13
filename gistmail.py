@@ -73,7 +73,7 @@ def incoming():
 
     # Ignore malformed message
     text = msg['text'] if 'text' in msg else None
-    if text:
+    if not text:
         print ' * SKIPPING: No "text" field found.'
         return ''
 
