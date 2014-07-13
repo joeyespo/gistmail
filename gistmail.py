@@ -4,6 +4,7 @@ GistMail
 Email gist@gistmail.com with a link and get a response with that article's summary.
 """
 
+import re
 from mandrill import Mandrill
 from flask import Flask, abort, json, render_template, request
 from raven.contrib.flask import Sentry
@@ -76,8 +77,13 @@ def incoming():
         print ' * SKIPPING: No "text" field found.'
         return ''
 
-    # TODO: Use pattern matching to find the URL
-    url = text.encode('utf-8', 'replace').strip()
+    # Find the URL
+    text = text.encode('utf-8', 'replace').strip()
+    matches = re.search(u'(?P<url>https?://[^\s]+)', text)
+    url = matches.group('url') if matches else None
+    if not url:
+        print ' * SKIPPING: No URL found in the provided text.'
+        return ''
     print 'Summarizing:', url
 
     try:
