@@ -1,5 +1,5 @@
 gevent==0.13.8
-nltk==2.0.4
+nltk==3.0.5
 requests==2.1.0
 beautifulsoup4==4.3.1
 blinker==1.3
