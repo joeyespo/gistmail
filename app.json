@@ -1,0 +1,25 @@
+{
+  "name": "GistMail",
+  "website": "https://gistmail.com",
+  "repository": "https://github.com/joeyespo/gistmail.com",
+  "env": {
+    "FROM_NAME": {
+      "description": "The name to send emails from.",
+      "value": "GistMail"
+    },
+    "FROM_EMAIL": {
+      "description": "The email address to send from."
+    },
+    "MANDRILL_API_KEY": {
+      "description": "The MailChimp API key."
+    },
+    "SENTRY_DSN": {
+      "description": "A token from https://getsentry.com for error reporting. Leave blank to disable.",
+      "required": false
+    },
+    "DEBUG": {
+      "description": "Whether to run in debug mode. (Do not use debug mode on production!)",
+      "value": "False"
+    }
+  }
+}

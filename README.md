@@ -9,6 +9,14 @@ Summary generation powered by [summarize.py][].
 For more information visit [gistmail.com][gistmail].
 
 
+Deploying
+---------
+
+Host your own instance for free:
+
+[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+
 Contributing
 ------------
 
