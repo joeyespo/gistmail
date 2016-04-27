@@ -49,10 +49,14 @@ def incoming():
     print ' * INCOMING EMAIL:',
 
     # Get incoming message
-    event = json.loads(request.form['mandrill_events'])[0]
+    data = json.loads(request.form['mandrill_events'])
+    if not data:
+        print ' * SKIPPING: Empty "mandrill_events" provided.'
+        return ''
+    event = data[0]
     msg = event['msg'] if 'msg' in event else None
     if not msg:
-        print ' * SKIPPING: No "msg" field found'
+        print ' * SKIPPING: No "msg" field found.'
         return ''
 
     # Get message metadata
