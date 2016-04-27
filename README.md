@@ -21,5 +21,5 @@ to learn, here's your chance in an otherwise lightweight project.
 3. Send a pull request
 
 
-[gistmail]: http://gistmail.com
+[gistmail]: https://gistmail.com
 [summarize.py]: https://github.com/Rotten194/summarize.py
