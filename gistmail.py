@@ -20,7 +20,7 @@ app.config.from_pyfile('settings_local.py', silent=True)
 # Email
 mandrill = Mandrill(app.config['MANDRILL_API_KEY'])
 # Error logging
-sentry = Sentry(app) if not app.config['SENTRY_DISABLED'] else None
+sentry = Sentry(app) if app.config.get('SENTRY_DSN') != 'disabled' else None
 
 
 # Views
@@ -112,8 +112,8 @@ def send_email(to, subject, html):
     message = {
         'html': html,
         'subject': subject,
-        'from_email': app.config['MANDRILL_EMAIL'],
-        'from_name': app.config['MANDRILL_EMAIL_NAME'],
+        'from_email': app.config['FROM_EMAIL'],
+        'from_name': app.config['FROM_NAME'],
         'to': [to],
     }
     result = mandrill.messages.send(message=message)[0]
@@ -124,7 +124,7 @@ def test_email_json():
     return json.dumps([
         {
             'msg': {
-                'from_email': app.config['ADMIN_EMAIL'],
+                'from_email': app.config['FROM_EMAIL'],
                 'subject': 'GistMail Test',
                 'text': 'http://gistmail.com',
             },
