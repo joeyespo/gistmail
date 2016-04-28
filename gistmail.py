@@ -38,7 +38,7 @@ def index():
 def admin():
     if not bool(app.config['DEBUG']):
         abort(404)
-    return render_template('admin.html', test_email_json=test_email_json())
+    return render_template('admin.html')
 
 
 @app.route('/incoming', methods=['POST'])
@@ -97,18 +97,6 @@ def send_email(to, subject, html):
             'email': email,
         })
     return response['id']
-
-
-def test_email_json():
-    return json.dumps([
-        {
-            'msg': {
-                'from_email': parseaddr(app.config['FROM_SENDER'])[1],
-                'subject': 'GistMail Test',
-                'text': 'https://gistmail.com',
-            },
-        },
-    ], indent=4, sort_keys=True)
 
 
 # Run development server
