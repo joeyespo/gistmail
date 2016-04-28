@@ -132,7 +132,7 @@ def test_email_json():
             'msg': {
                 'from_email': parseaddr(app.config['FROM_SENDER'])[1],
                 'subject': 'GistMail Test',
-                'text': 'http://gistmail.com',
+                'text': 'https://gistmail.com',
             },
         },
     ], indent=4, sort_keys=True)
