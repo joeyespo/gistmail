@@ -1,7 +1,8 @@
-"""\
+"""
 GistMail
 
-Email gist@gistmail.com with a link and get a response with that article's summary.
+Email gist@gistmail.com with a link and get a response with that
+article's summary.
 """
 
 import re
@@ -22,7 +23,7 @@ app.config.from_pyfile('settings_local.py', silent=True)
 # Email
 sparkpost = SparkPost(app.config['SPARKPOST_API_KEY'])
 # Error logging
-sentry = Sentry(app) if app.config.get('SENTRY_DSN') != 'disabled' else None
+sentry = Sentry(app) if app.config['SENTRY_DSN'] != 'disabled' else None
 
 
 # Views
@@ -101,8 +102,9 @@ def incoming():
         subject = '[ERROR] ' + subject
         html = render_template('error_email.html', url=url)
     else:
-        html = render_template('summary_email.html',
-            title=summary.title, url=summary.url, summaries=summary.summaries)
+        html = render_template(
+            'summary_email.html', title=summary.title, url=summary.url,
+            summaries=summary.summaries)
 
     print 'Replying to:', email
     email_id = send_email(email, subject, html)
