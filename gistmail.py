@@ -41,49 +41,18 @@ def admin():
     return render_template('admin.html', test_email_json=test_email_json())
 
 
-@app.route('/incoming', methods=['GET', 'POST'])
+@app.route('/incoming', methods=['POST'])
 def incoming():
-    # Ignore initial Mandrill check
-    if request.method == 'GET':
-        return ''
-    if not request.form['mandrill_events'] or request.form['mandrill_events'] == []:
-        return ''
+    from_sender = request.form.get('from', '')
+    print(' * INCOMING EMAIL from', repr(from_sender))
 
-    # TODO: Check that this request is actually coming from Mandrill
+    from_name, from_email = parseaddr(from_sender)
+    subject = request.form.get('subject')
+    text = request.form.get('stripped-text')
 
-    print(' * INCOMING EMAIL:', end='')
-
-    # Get incoming message
-    data = json.loads(request.form['mandrill_events'])
-    if not data:
-        print(' * SKIPPING: Empty "mandrill_events" provided.')
-        return ''
-    event = data[0]
-    msg = event['msg'] if 'msg' in event else None
-    if not msg:
-        print(' * SKIPPING: No "msg" field found.')
-        return ''
-
-    # Get message metadata
-    email = msg['from_email']
-    subject = msg['subject']
-    if not email:
-        print(' * SKIPPING: No "email" field found.')
-        return ''
-    if not subject:
-        print(' * SKIPPING: No "subject" field found.')
-        return ''
-
-    # Ignore Mandrill test
-    print 'Incoming email from:', email
-    if email == u'example.sender@mandrillapp.com':
-        print(' * Skipping incoming test email.')
-        return ''
-
-    # Ignore malformed message
-    text = msg['text'] if 'text' in msg else None
-    if not text:
-        print(' * SKIPPING: No "text" field found.')
+    # Validation
+    if not from_email or not subject or not text:
+        print(' * SKIPPING: Missing "from", "subject", or "text" field.')
         return ''
 
     # Find the URL
@@ -107,8 +76,8 @@ def incoming():
             'summary_email.html', title=summary.title, url=summary.url,
             summaries=summary.summaries)
 
-    print('Replying to:', email)
-    email_id = send_email(email, subject, html)
+    print('Replying to:', from_email)
+    email_id = send_email(from_email, subject, html)
 
     print('Reply ID:', email_id)
     return ''
