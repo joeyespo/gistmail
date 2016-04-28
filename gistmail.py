@@ -5,9 +5,11 @@ Email gist@gistmail.com with a link and get a response with that article's summa
 """
 
 import re
-from mandrill import Mandrill
+from email.utils import parseaddr
+
 from flask import Flask, abort, json, render_template, request
 from raven.contrib.flask import Sentry
+from sparkpost import SparkPost
 from summarize import summarize_page
 
 
@@ -18,7 +20,7 @@ app.config.from_object('settings')
 app.config.from_envvar('SETTINGS_MODULE', silent=True)
 app.config.from_pyfile('settings_local.py', silent=True)
 # Email
-mandrill = Mandrill(app.config['MANDRILL_API_KEY'])
+sparkpost = SparkPost(app.config['SPARKPOST_API_KEY'])
 # Error logging
 sentry = Sentry(app) if app.config.get('SENTRY_DSN') != 'disabled' else None
 
@@ -111,24 +113,21 @@ def incoming():
 
 # Helpers
 def send_email(to, subject, html):
-    if isinstance(to, basestring):
-        to = {'email': to}
-    message = {
-        'html': html,
-        'subject': subject,
-        'from_email': app.config['FROM_EMAIL'],
-        'from_name': app.config['FROM_NAME'],
-        'to': [to],
-    }
-    result = mandrill.messages.send(message=message)[0]
-    return result['_id']
+    name, email = parseaddr(app.config['FROM_SENDER'])
+    response = sparkpost.transmission.send(
+        recipients=[to], subject=subject, html=html,
+        from_email={
+            'name': name,
+            'email': email,
+        })
+    return response['id']
 
 
 def test_email_json():
     return json.dumps([
         {
             'msg': {
-                'from_email': app.config['FROM_EMAIL'],
+                'from_email': parseaddr(app.config['FROM_SENDER'])[1],
                 'subject': 'GistMail Test',
                 'text': 'http://gistmail.com',
             },

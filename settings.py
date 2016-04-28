@@ -13,7 +13,6 @@ HOST = os.environ.get('HOST', 'localhost')
 PORT = int(os.environ.get('PORT', 5000))
 
 
-MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY')
-FROM_EMAIL = os.environ.get('FROM_EMAIL')
-FROM_NAME = os.environ.get('FROM_NAME')
+SPARKPOST_API_KEY = os.environ.get('SPARKPOST_API_KEY')
+FROM_SENDER = os.environ.get('FROM_SENDER')
 SENTRY_DSN = os.environ.get('SENTRY_DSN')
