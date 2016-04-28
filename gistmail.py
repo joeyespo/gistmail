@@ -50,6 +50,10 @@ def incoming():
     subject = request.form.get('subject')
     text = request.form.get('stripped-text')
 
+    # Prevent infinite sends
+    if from_email.lower() == parseaddr(app.config['FROM_SENDER'])[1].lower():
+        return ''
+
     # Validation
     if not from_email or not subject or not text:
         print(' * SKIPPING: Missing "from", "subject", or "text" field.')
