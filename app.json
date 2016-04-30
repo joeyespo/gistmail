@@ -2,13 +2,14 @@
   "name": "GistMail",
   "website": "https://gistmail.com",
   "repository": "https://github.com/joeyespo/gistmail.com",
+  "description": "Email gist@gistmail.com with a link and get a response with that article's summary.",
   "env": {
     "FROM_SENDER": {
       "description": "The name and email address to send from.",
       "value": "GistMail <gist@gistmail.com>"
     },
     "SPARKPOST_API_KEY": {
-      "description": "The Sparkpost API key. Leave blank to use a fresh Heroku Add-on instance.",
+      "description": "The SparkPost API key. Leave blank to use a fresh Heroku Add-on instance.",
       "required": false
     },
     "SENTRY_DSN": {
