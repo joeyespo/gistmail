@@ -10,9 +10,10 @@ from __future__ import print_function, unicode_literals
 import re
 from email.utils import parseaddr
 
-from flask import Flask, abort, json, render_template, request
+from flask import Flask, abort, render_template, request
 from raven.contrib.flask import Sentry
 from sparkpost import SparkPost
+
 from summarize import summarize_page
 
 
