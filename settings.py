@@ -14,5 +14,5 @@ PORT = int(os.environ.get('PORT', 5000))
 
 
 SPARKPOST_API_KEY = os.environ.get('SPARKPOST_API_KEY')
-FROM_SENDER = os.environ.get('FROM_SENDER')
+EMAIL_SENDER = os.environ.get('EMAIL_SENDER')
 SENTRY_DSN = os.environ.get('SENTRY_DSN')

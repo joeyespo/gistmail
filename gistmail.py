@@ -44,19 +44,19 @@ def admin():
 
 @app.route('/incoming', methods=['POST'])
 def incoming():
-    from_sender = request.form.get('from', '')
-    print(' * INCOMING EMAIL from', repr(from_sender))
+    from_email = request.form.get('from', '')
+    print(' * INCOMING EMAIL from', repr(from_email))
 
-    from_name, from_email = parseaddr(from_sender)
+    name, email = parseaddr(from_email)
     subject = request.form.get('subject')
     text = request.form.get('stripped-text')
 
     # Prevent infinite sends
-    if from_email.lower() == parseaddr(app.config['FROM_SENDER'])[1].lower():
+    if email.lower() == parseaddr(app.config['EMAIL_SENDER'])[1].lower():
         return ''
 
     # Validation
-    if not from_email or not subject or not text:
+    if not email or not subject or not text:
         print(' * SKIPPING: Missing "from", "subject", or "text" field.')
         return ''
 
@@ -81,8 +81,8 @@ def incoming():
             'summary_email.html', title=summary.title, url=summary.url,
             summaries=summary.summaries)
 
-    print('Replying to:', from_email)
-    email_id = send_email(from_email, subject, html)
+    print('Replying to:', email)
+    email_id = send_email(email, subject, html)
 
     print('Reply ID:', email_id)
     return ''
@@ -90,13 +90,11 @@ def incoming():
 
 # Helpers
 def send_email(to, subject, html):
-    name, email = parseaddr(app.config['FROM_SENDER'])
+    name, email = parseaddr(app.config['EMAIL_SENDER'])
+    from_email = {'name': name, 'email': email}
+
     response = sparkpost.transmission.send(
-        recipients=[to], subject=subject, html=html,
-        from_email={
-            'name': name,
-            'email': email,
-        })
+        recipients=[to], subject=subject, html=html, from_email=from_email)
     return response['id']
 
 

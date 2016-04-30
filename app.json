@@ -4,8 +4,8 @@
   "repository": "https://github.com/joeyespo/gistmail.com",
   "description": "Email gist@gistmail.com with a link and get a response with that article's summary.",
   "env": {
-    "FROM_SENDER": {
-      "description": "The name and email address to send from.",
+    "EMAIL_SENDER": {
+      "description": "The name and email address to send emails from.",
       "value": "GistMail <gist@gistmail.com>"
     },
     "SPARKPOST_API_KEY": {
