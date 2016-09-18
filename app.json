@@ -1,12 +1,12 @@
 {
   "name": "GistMail",
-  "website": "https://gistmail.com",
-  "repository": "https://github.com/joeyespo/gistmail.com",
-  "description": "Email gist@gistmail.com with a link and get a response with that article's summary.",
+  "website": "https://gistmail.herokuapp.com",
+  "repository": "https://github.com/joeyespo/gistmail",
+  "description": "Email gist@YOUR-DOMAIN with a link and get a response with that article's summary.",
   "env": {
     "EMAIL_SENDER": {
       "description": "The name and email address to send emails from.",
-      "value": "GistMail <gist@gistmail.com>"
+      "value": "gist@YOUR-DOMAIN"
     },
     "SPARKPOST_API_KEY": {
       "description": "The SparkPost API key. Leave blank to use a fresh Heroku Add-on instance.",

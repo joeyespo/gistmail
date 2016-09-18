@@ -1,7 +1,7 @@
 """
 GistMail
 
-Email gist@gistmail.com with a link and get a response with that
+Email gist@YOUR-DOMAIN with a link and get a response with that
 article's summary.
 """
 
