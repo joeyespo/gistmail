@@ -1,4 +1,4 @@
-GistMail
+GistMail-A complete email solution for Indian Languages
 ========
 
 ### Update: The gistmail.com domain was expired. You'll have to deploy this to your own domain.
